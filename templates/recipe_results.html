@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipes</title>
+    <style>
+        body {
+            background-color: #F0F0F0;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .navbar {
+            background-color: #333333;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            height: 50px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            text-align: center;
+            display: block;
+        }
+        .navbar a:hover {
+            background-color: #3102a9;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .recipe-details {
+            grid-column: 1;
+        }
+        .instructions {
+            grid-column: 2;
+            padding: 15px;
+            border-radius: 8px;
+
+            width: 100%;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='images/Flavor.png') }}" alt="Logo" class="logo" />
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="{{ url_for('recipes') }}">Recipes</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+    </div>
+    <h1>Recipes Found</h1>
+    {% if recipes %}
+        {% for recipe in recipes %}
+        <div class="container">
+            <div class="recipe-details">
+                <h2>{{ recipe.title }}</h2>
+                <h3>Ingredients:</h3>
+                <ul>
+                    {% for ingredient in recipe.usedIngredients %}
+                        <li>{{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+                    {% endfor %}
+                </ul>
+                <h3>Missing Ingredients:</h3>
+                <ul>
+                    {% for ingredient in recipe.missedIngredients %}
+                        <li>{{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+                    {% endfor %}
+                </ul>
+                <img src="{{ recipe.image }}" alt="Recipe Image">
+                <p>Likes: {{ recipe.likes }}</p>
+            </div>
+            <div class="instructions">
+                <h3>Instructions:</h3>
+                <ul>
+                    {% for instruction in recipe.instructions %}
+                        {% for step in instruction.steps %}
+                            <li>{{ step.step }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+        <p>No recipes found for the given ingredients.</p>
+    {% endif %}
+</body>
+</html>

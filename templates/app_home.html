@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        body {
+            background-image: url('/static/images/background_home.jpg');
+            background-size: cover;
+        }
+        /* Navbar styles */
+        .navbar {
+            background-color: #333333;
+            display: flex; /* Use flexbox for layout */
+            align-items: center; 
+            padding: 10px 20px; 
+            height: 50px; 
+        }
+        .nav-links {
+            display: flex; /* Use flexbox for links */
+            justify-content: space-around; /* Evenly space the links */
+            flex-grow: 1; /* Allow the nav links to grow and fill available space */
+            margin-left: 20px; /* Add margin to the left of nav links */
+        }
+        .navbar a {
+            color: #FFF; /* White text color */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 15px; /* Adjust padding around links */
+            text-align: center; /* Center text */
+            display: block; /* Make links block-level */
+        }
+        .navbar a:hover {
+            background-color: rgb(117, 99, 76); /* Darker orange on hover */
+        }
+        .logo {
+            width: 100px; /* Set the width of the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .main_text {
+            color:#808080;
+            text-align: right;
+            position: relative;
+            top: 75px;
+            right: 100px;
+            font-size: 100px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+        }
+        .sub_text {
+            color:#808080;
+            text-align: right;
+            position: relative;
+            top: 10px;
+            right: 100px;
+            font-size: 30px;
+            font-family: 'Courier New', Courier, monospace
+
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='images/Flavor.png') }}" alt="Logo" class="logo" />
+        
+        <div class="nav-links">
+            <a href="/">Home</a>          <!-- Link to the home page -->
+            <a href="{{ url_for('recipes') }}">Recipes</a> <!-- Link to recipes page -->
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+    </div>
+    <h1 class="main_text"> 
+        Recipes <br>
+        made easy
+        
+    </h1>
+    <h1 class="sub_text">
+        Perfect recipes for every occasion.
+    </h1>
+
+
+
+</body>
+</html>

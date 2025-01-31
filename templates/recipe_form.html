@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        body {
+            background-color: #F0F0F0; 
+            color: #333; 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+        }
+        /* Navbar styles */
+        .navbar {
+            background-color: #333333; /* Orange background for the navbar */
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Add padding */
+            height: 50px; /* Set a fixed height for the navbar */
+        }
+        .nav-links {
+            display: flex; /* Use flexbox for links */
+            justify-content: space-around; /* Evenly space the links */
+            flex-grow: 1; /* Allow the nav links to grow and fill available space */
+            margin-left: 20px; /* Add margin to the left of nav links */
+        }
+        .navbar a {
+            color: white; /* White text color */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 15px; /* Adjust padding around links */
+            text-align: center; /* Center text */
+            display: block; /* Make links block-level */
+        }
+        .navbar a:hover {
+            background-color: #75634c; /* Darker orange on hover */
+        }
+        .logo {
+            width: 100px; /* Set the width of the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='images/Flavor.png') }}" alt="Logo" class="logo" />
+        
+        <div class="nav-links">
+            <a href="/">Home</a>           <!-- Link to the home page -->
+            <a href="{{ url_for('recipes') }}">Recipes</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+    </div>
+    
+
+    <h1>Find Recipes by Ingredients</h1>
+    <form method="POST">
+        <label for="ingredients">Ingredients (comma-separated):</label><br>
+        <input type="text" id="ingredients" name="ingredients" required><br><br>
+
+        <label for="number">Number of recipes:</label><br>
+        <input type="number" id="number" name="number" required><br><br>
+
+        <input type="submit" value="Search Recipes">
+    </form>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+</head>
+<body>
+    <h1>Recipe Finder</h1>
+    <input type="text" id="ingredients" placeholder="List of ingredients" />
+    <input type="number" id="number" placeholder="Number of recipes" />
+    <button id="search">Find Recipes</button>
+
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('search').addEventListener('click', async () => {
+            const ingredients = document.getElementById('ingredients').value;
+            const number = document.getElementById('number').value;
+            const apiKey = '0329312fa1b943a49b245640c08a2872'; // Put your API key here
+            const url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${encodeURIComponent(ingredients)}&number=${number}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (data.error) {
+                resultsDiv.innerText = data.error;
+            } else {
+                data.forEach((recipe, index) => {
+                    const recipeDiv = document.createElement('div');
+                    recipeDiv.innerHTML = `
+                        <h2>Recipe ${index + 1}: ${recipe.title}</h2>
+                        <ul>
+                            ${recipe.usedIngredients.map(ingredient => `<li>${ingredient.amount} ${ingredient.unit} ${ingredient.name}</li>`).join('')}
+                        </ul>
+                        <img src="${recipe.image}" alt="${recipe.title}">
+                        <p>Likes: ${recipe.likes}</p>
+                        <hr>
+                    `;
+                    resultsDiv.appendChild(recipeDiv);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
