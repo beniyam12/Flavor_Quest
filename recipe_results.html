@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipes</title>
+    <style>
+        body {
+            background-color: #F0F0F0; /* Light gray background */
+            color: #333; /* Text color */
+            font-family: Arial, sans-serif; /* Font style */
+            margin: 0; /* Remove default margin */
+        }
+        /* Navbar styles */
+        .navbar {
+            background-color: #333333; /* Orange background for the navbar */
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center items vertically */
+            padding: 10px 20px; /* Add padding */
+            height: 50px; /* Set a fixed height for the navbar */
+        }
+        .nav-links {
+            display: flex; /* Use flexbox for links */
+            justify-content: space-around; /* Evenly space the links */
+            flex-grow: 1; /* Allow the nav links to grow and fill available space */
+            margin-left: 20px; /* Add margin to the left of nav links */
+        }
+        .navbar a {
+            color: white; /* White text color */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 15px; /* Adjust padding around links */
+            text-align: center; /* Center text */
+            display: block; /* Make links block-level */
+        }
+        .navbar a:hover {
+            background-color: #3102a9; /* Darker orange on hover */
+        }
+        .logo {
+            width: 100px; /* Set the width of the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='images/Flavor.png') }}" alt="Logo" class="logo" />
+        
+        <div class="nav-links">
+            <a href="/">Home</a>          <!-- Link to the home page -->
+            <a href="{{ url_for('recipes') }}">Recipes</a> <!-- Link to recipes page -->
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+    </div>
+    <h1>Recipes Found</h1>
+    
+    {% if recipes %}
+        {% for recipe in recipes %}
+            <h2>{{ recipe.title }}</h2>
+            <h3>Ingredients:</h3>
+            <ul>
+                {% for ingredient in recipe.usedIngredients %}
+                    <li>{{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+                {% endfor %} 
+            </ul>
+            <h3>Missing Ingredients:</h3>
+            <ul>
+                {% for ingredient in recipe.missedIngredients %}
+                    <li>{{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+                {% endfor %} 
+            </ul>
+
+            <img src="{{ recipe.image }}" alt="Recipe Image">
+            <p>Likes: {{ recipe.likes }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No recipes found for the given ingredients.</p>
+    {% endif %}
+</body>
+</html>
