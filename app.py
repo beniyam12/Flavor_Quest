@@ -6,7 +6,7 @@ import requests
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://flavor_quest_ofxa_user:dcCHNtDq9shCZaqjTGjLy2jX8NZ7LZfk@dpg-cv1scraj1k6c73975bcg-a.oregon-postgres.render.com/flavor_quest_ofxa"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://flavor_quest_ofxa_user:dcCHNtDq9shCZaqjTGjLy2jX8NZ7LZfk@dpg-cv1scraj1k6c73975bcg-a/flavor_quest_ofxa"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'inebbeni'
 
