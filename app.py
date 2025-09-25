@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import requests
-
+import os
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://flavor_quest_ofxa_user:dcCHNtDq9shCZaqjTGjLy2jX8NZ7LZfk@dpg-cv1scraj1k6c73975bcg-a/flavor_quest_ofxa"
@@ -28,7 +28,13 @@ class Contact(db.Model):
 
 
 
-API_KEY = "0329312fa1b943a49b245640c08a2872"
+API_KEY = os.getenv("SPOONACULAR_API_KEY")
+
+if not SPOONACULAR_API_KEY:
+    raise RuntimeError("SPOONACULAR_API_KEY not set")
+
+
+    
 BASE_URL = "https://api.spoonacular.com/recipes/findByIngredients"
 
 def get_recipes(ingredients, number):
