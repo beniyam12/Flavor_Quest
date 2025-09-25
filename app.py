@@ -30,7 +30,7 @@ class Contact(db.Model):
 
 API_KEY = os.getenv("SPOONACULAR_API_KEY")
 
-if not SPOONACULAR_API_KEY:
+if not API_KEY:
     raise RuntimeError("SPOONACULAR_API_KEY not set")
 
 
